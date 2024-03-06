@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Integer> array = new ArrayList<>();
+        List<Integer> array = new ArrayList<>();
         array.addElement(1);
         array.addElement(3);
         array.addElement(5);
@@ -17,12 +17,12 @@ public class Main {
         System.out.println(array.getElement(4));
         array.deleteElement(9);
         System.out.println(array);
-        array.sortArray();
+        array.sort();
         System.out.println(array);
-        array.cleanArray();
+        array.clean();
         System.out.println(array);
 
-        LinkedList<Integer> array1 = new LinkedList<>();
+        List<Integer> array1 = new LinkedList<>();
         array1.addElement(1);
         array1.addElement(3);
         array1.addElement(5);
@@ -39,9 +39,9 @@ public class Main {
         System.out.println(array1.getElement(4));
         array1.deleteElement(9);
         System.out.println(array1);
-        array1.sortList();
+        array1.sort();
         System.out.println(array1);
-        array1.clearList();
+        array1.clean();
         System.out.println(array1);
     }
 }

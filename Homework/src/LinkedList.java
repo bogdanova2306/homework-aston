@@ -4,7 +4,7 @@ import java.util.Arrays;
  * @author Anna Bogdanova
  * @version 1.0.0
  */
-public class LinkedList<T> {
+public class LinkedList<T> implements List<T> {
     /** The first element of linked list*/
     private Node<T> start;
     /** The last element of linked list*/
@@ -28,8 +28,9 @@ public class LinkedList<T> {
      * Adding an item to a linked list
      * @param element The element that needs to be added
      */
-    public void addElement(T element) {
-        Node<T> node = new Node<>(element);
+    @Override
+    public void addElement(Object element) {
+        Node<T> node = (Node<T>) new Node<>(element);
         if (end == null) {
             start = node;
         } else {
@@ -44,11 +45,12 @@ public class LinkedList<T> {
      * @param element The element that needs to be added
      * @param index The index where the element should be inserted
      */
-    public void addElement(T element, int index) {
+    @Override
+    public void addElement(Object element, int index) {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException("There is no such index");
         }
-        Node<T> node = new Node<T>(element);
+        Node<T> node = (Node<T>) new Node<>(element);
         if (index == 0) {
             node.next = start;
             start.last = node;
@@ -74,6 +76,7 @@ public class LinkedList<T> {
      * @param index The index of element to be retrieved
      * @return An element by the requested index
      */
+    @Override
     public T getElement(int index) {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException("There is no such index");
@@ -92,6 +95,7 @@ public class LinkedList<T> {
      * Skip the node being deleted by redirecting the link of the previous node
      * Reducing the size of the linked list
      */
+    @Override
     public void deleteElement(int index) {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException("There is no such index");
@@ -113,7 +117,8 @@ public class LinkedList<T> {
      *After that, sorting is performed and clearing the current linked list
      *All the elements are copied from the sorted array to the new linked list
      */
-    public void sortList() {
+    @Override
+    public void sort() {
         T[] array = (T[]) new Object[size];
         Node<T> node = start;
         for (int i = 0; i < size; i++) {
@@ -121,7 +126,7 @@ public class LinkedList<T> {
             node = node.next;
         }
         Arrays.sort(array);
-        clearList();
+        clean();
         for (int i = 0; i < array.length; i++) {
             addElement(array[i]);
         }
@@ -129,7 +134,8 @@ public class LinkedList<T> {
     /**
      * Clear the linked list
      */
-    public void clearList() {
+    @Override
+    public void clean() {
         start = null;
         end = null;
         size = 0;
@@ -138,6 +144,7 @@ public class LinkedList<T> {
      * Getting the current size of the linked list
      * @return linked list size
      */
+    @Override
     public int getSize() {
         return size;
     }
@@ -145,6 +152,7 @@ public class LinkedList<T> {
      * Converting a linked list to a string representation for console output
      * @return String representation of a linked list
      */
+    @Override
     public String toString() {
         StringBuilder elements = new StringBuilder();
         Node<T> node = start;

@@ -4,7 +4,7 @@ import java.util.Arrays;
  * @author Anna Bogdanova
  * @version 1.0.0
  */
-public class ArrayList<T>  {
+public class ArrayList<T> implements List<T> {
     /**
      * First index of an element in the array list
      */
@@ -28,8 +28,9 @@ public class ArrayList<T>  {
      * changing the index to the next one, and checking the array for fullness
      * @param element The item that needs to be added to the list
      */
-    public void addElement(T element) {
-        array[index] = element;
+    @Override
+    public void addElement(Object element) {
+        array[index] = (T) element;
         index = index + 1;
         checkingForFullness();
     }
@@ -40,11 +41,11 @@ public class ArrayList<T>  {
      * @param element The item that needs to be added to the list
      * @param index The place in the array to add the element
      */
-    public void addElement(T element, int index) {
+    public void addElement(Object element, int index) {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException("There is no such index");
         }
-        array[index] = element;
+        array[index] = (T) element;
         checkingForFullness();
     }
     /**
@@ -80,6 +81,12 @@ public class ArrayList<T>  {
      * @return array list size
      */
     public int getSize() {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == null){
+                size = i;
+                break;
+            }
+        }
         return size;
     }
     /**
@@ -87,6 +94,7 @@ public class ArrayList<T>  {
      * checking for the presence of this index in the array,
      * @return an array element
      */
+    @Override
     public T getElement(int index) {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException("There is no such index");
@@ -95,8 +103,9 @@ public class ArrayList<T>  {
     }
     /**
      * Removal an array element by index,
-     * checking for the presence of this index in the array,
+     * checking for the presence of this index in the array
      */
+    @Override
     public void deleteElement(int index) {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException("There is no such index");
@@ -106,10 +115,9 @@ public class ArrayList<T>  {
     /**
      * Deleting all elements of the array
      */
-    public void cleanArray() {
-        for (int i = 0; i < array.length; i++){
-            array[i] = null;
-        }
+    public void clean() {
+        size = 10;
+        array = (T[]) new Object[size];
     }
     /**
      * This method is an array sorting,
@@ -121,7 +129,7 @@ public class ArrayList<T>  {
      * Then new array sorted.
      * Then the current array fills with the elements of the new array.
      */
-    public void sortArray() {
+    public void sort() {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null){
                 size = i;
@@ -142,6 +150,9 @@ public class ArrayList<T>  {
     public String toString() {
         StringBuilder list = new StringBuilder();
         for (T listArray : array){
+            if (listArray == null){
+                break;
+            }
             list.append(listArray).append(" ");
         }
         return list.toString();
